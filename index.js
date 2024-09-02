@@ -114,6 +114,54 @@ app.get('/calculate', (req, res, next) => {
     }
 });
 
+app.get('/imc', (req, res, next) => {
+    try {
+        const { peso, altura } = req.query;
+
+      /*  // Decodifica o parâmetro 'operation' para tratar caracteres especiais
+        const decodedOperation = decodeURIComponent(operation).replace(/\s+/g, '+');
+
+        // Verifica o valor do parâmetro 'operation' recebido
+        console.log(`Received operation: '${operation}'`);
+        console.log(`Decoded operation: '${decodedOperation}'`);*/
+
+        // Verifica se todos os parâmetros estão presentes
+        if (peso === undefined || altura === undefined) {
+            throw new Error('Parâmetros insuficientes!');
+        }
+
+        // Converte os parâmetros para números
+        const peso1 = parseFloat(peso);
+        const altura1 = parseFloat(altura);
+
+        // Verifica se os parâmetros são números válidos
+        if (isNaN(peso1) || isNaN(altura1)) {
+            throw new Error('Parâmetros inválidos!');
+        }
+
+        // Realiza a operação baseada no parâmetro 'operation'
+
+        const imc = peso1 / (altura1 * altura1);
+        let result1
+
+        if (imc < 18.5) {
+            result1 = "Abaixo do peso";
+        } else if (imc >= 18.5 && imc < 24.9) {
+            result1 = "Peso normal";
+        } else if (imc >= 25 && imc < 29.9) {
+            result1 = "Sobrepeso";
+        } else {
+            result1 = "Obesidade";
+        }
+
+        
+
+        res.json({ result1 });
+    } catch (error) {
+        next(error); // Passa o erro para o middleware de tratamento
+    }
+});
+
 // Middleware de tratamento de erros
 app.use((err, req, res, next) => {
     console.error(err.stack); // Log do erro

@@ -118,12 +118,9 @@ app.get('/imc', (req, res, next) => {
     try {
         const { peso, altura } = req.query;
 
-      /*  // Decodifica o parâmetro 'operation' para tratar caracteres especiais
-        const decodedOperation = decodeURIComponent(operation).replace(/\s+/g, '+');
-
         // Verifica o valor do parâmetro 'operation' recebido
-        console.log(`Received operation: '${operation}'`);
-        console.log(`Decoded operation: '${decodedOperation}'`);*/
+        console.log(`Received peso: '${peso}'`);
+        console.log(`Received altura: '${altura}'`);
 
         // Verifica se todos os parâmetros estão presentes
         if (peso === undefined || altura === undefined) {
@@ -145,13 +142,13 @@ app.get('/imc', (req, res, next) => {
         let result1
 
         if (imc < 18.5) {
-            result1 = "Abaixo do peso";
+            result1 = `${imc} - Abaixo do peso`;
         } else if (imc >= 18.5 && imc < 24.9) {
-            result1 = "Peso normal";
+            result1 = `${imc} - Peso normal`;
         } else if (imc >= 25 && imc < 29.9) {
-            result1 = "Sobrepeso";
+            result1 = `${imc} - Sobrepeso`;
         } else {
-            result1 = "Obesidade";
+            result1 = `${imc} - Obesidade`;
         }
 
         

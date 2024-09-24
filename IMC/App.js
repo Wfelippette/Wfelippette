@@ -11,19 +11,19 @@ export default function App() {
     try {
       setError(null); // Reset error
       const response = await fetch(
-        `http://172.16.210.14:3000/calculate?peso=${peso}&altura=${altura}`
+        `http://172.16.7.11:3000/imc?peso=${peso}&altura=${altura}`
       );
       const data = await response.json();
 
       if (response.ok) {
-        setResult(data.result1);
+        setResult1(data.result1);
       } else {
         setError(data.error);
-        setResult(null);
+        setResult1(null);
       }
     } catch (err) {
       setError('Erro de rede ou servidor!');
-      setResult(null);
+      setResult1(null);
     }
   };
 
@@ -55,7 +55,7 @@ export default function App() {
 
       <Button title="Calcular" onPress={handleCalculateImc} />
 
-      {result1 !== null && <Text style={styles.result1}>Resultado: {result1}</Text>}
+      {result1 !== null && <Text style={styles.result}>Resultado: {result1}</Text>}
       {error && <Text style={styles.error}>Erro: {error}</Text>}
     </View>
   );
